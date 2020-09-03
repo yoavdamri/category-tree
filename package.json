@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "predeploy": "firebase login",
+    "deploy": "firebase deploy"
   },
   "private": true,
   "dependencies": {
@@ -45,6 +47,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
+    "firebase-tools": "^8.9.2",
     "typescript": "~3.9.5"
   }
 }
