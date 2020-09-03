@@ -1,0 +1,16 @@
+<div *ngIf="categs; else loading" class="tree-roots">
+  <ng-container *ngIf="categs.length">
+    <app-category-view *ngFor="let categ of categs" [categ]="categ" [isRoot]="true"></app-category-view>
+  </ng-container>
+</div>
+<ng-template #loading style="font-size: 2rem"><i class="pi pi-spin pi-spinner"></i> loading trees...</ng-template>
+
+<p-overlayPanel #op [showCloseIcon]="true">
+  <app-add-category parentId=""></app-add-category>
+</p-overlayPanel>
+<div class="add-new-tree">
+  <p-button type="button"
+            styleClass="p-button-rounded p-button-success p-d-none p-d-md-inline-flex"
+            (click)="op.toggle($event)">Add new tree
+  </p-button>
+</div>

@@ -1,0 +1,41 @@
+<p-overlayPanel #op [showCloseIcon]="true">
+  <app-add-category [parentId]="categ.id"
+                    [showOrder]="categ.childrenNo"
+                    (subCategoryAdded)="updateChildNumer(1)" ></app-add-category>
+</p-overlayPanel>
+
+<div class="categ-item">
+  <p-button [disabled]="!categ.childrenNo"
+            type="button"
+            icon="pi p- {{ categ.childrenNo ? (expandAll ? 'pi-minus-circle' : 'pi-plus-circle') : 'pi-circle-off'}}"
+            styleClass="p-button-rounded p-button-success p-d-none p-d-md-inline-flex"
+            (click)="openChildren()">
+  </p-button>
+  <i class="pi pi-calendar-plus" pTooltip="Add subcategory" (click)="op.toggle($event)"></i>
+  <div *ngIf="!editMode" class="p-text-nowrap p-text-truncate" style="width: 8rem" pTooltip="{{categ.name}}">{{categ.name}}</div>
+  <input *ngIf="editMode"
+         pInputText
+         #editName
+         type="text"
+         [(ngModel)]="categ.name"
+         />
+  <i *ngIf="!editMode" class="pi pi-pencil" (click)="editMode = !editMode" pTooltip="Edit"></i>
+  <i *ngIf="editMode" class="pi pi-save" (click)="saveChanges()" pTooltip="Edit"></i>
+  <p-button type="button"
+            icon="pi pi-trash p- "
+            pTooltip="Delete category"
+            styleClass="p-button-rounded p-button-danger p-d-none p-d-md-inline-flex"
+            (click)="deleteCateg()">
+  </p-button>
+  <i class="pi pi-info-circle" *ngIf="categ.parentId" pTooltip="{{categ.parentId}}"></i>
+</div>
+
+<div class="sub-categs" [class.child]="!isRoot" *ngIf="expandAll">
+  <div *ngIf="categs; else loading" class="sub-categs-cont">
+    <ng-container *ngIf="categs.length; else noItems">
+      <app-category-view *ngFor="let categ of categs" [categ]="categ" (subCategoryDeleted)="updateChildNumer(-1)"></app-category-view>
+    </ng-container>
+    <ng-template #noItems></ng-template>
+  </div>
+  <ng-template #loading><i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i> loading categories...</ng-template>
+</div>

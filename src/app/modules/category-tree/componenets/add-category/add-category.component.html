@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <div class="p-field">
+    <label for="name">Category name: </label>
+    <input id="name"
+           pInputText
+           type="text"
+           [readOnly]="inProccess"
+           formControlName="name"
+           [ngClass]="{'p-invalid': !form.get('name').valid && form.get('name').dirty}"/>
+  </div>
+</form>
+<div>
+  <button [disabled]="inProccess || !form.valid" (click)="addUpdateCateg()">{{ form.get('id') ? 'Update' : 'Add' }}</button>
+</div>
