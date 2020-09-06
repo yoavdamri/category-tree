@@ -34,7 +34,6 @@ export class AddCategoryComponent implements OnInit {
   addUpdateCateg(): void {
     this.inProccess = true;
     this.categManagerService.addCateg(this.form.value).then((doc) => {
-      console.log('added', doc);
       this.subCategoryAdded.emit(doc.id);
     }).catch((err) => {
       console.log('err', err);

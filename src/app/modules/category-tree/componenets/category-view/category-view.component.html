@@ -27,13 +27,15 @@
             styleClass="p-button-rounded p-button-danger p-d-none p-d-md-inline-flex"
             (click)="deleteCateg()">
   </p-button>
-  <i class="pi pi-info-circle" *ngIf="categ.parentId" pTooltip="{{categ.parentId}}"></i>
 </div>
 
 <div class="sub-categs" [class.child]="!isRoot" *ngIf="expandAll">
-  <div *ngIf="categs; else loading" class="sub-categs-cont">
+  <div *ngIf="categs; else loading" class="sub-categs-cont" cdkDropList (cdkDropListDropped)="drop($event)">
     <ng-container *ngIf="categs.length; else noItems">
-      <app-category-view *ngFor="let categ of categs" [categ]="categ" (subCategoryDeleted)="updateChildNumer(-1)"></app-category-view>
+      <app-category-view *ngFor="let categ of categs"
+                         [categ]="categ"
+                         (subCategoryDeleted)="updateChildNumer(-1)"
+                         cdkDrag></app-category-view>
     </ng-container>
     <ng-template #noItems></ng-template>
   </div>
